@@ -9,16 +9,12 @@ resource "aws_vpc" "this" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name = "${var.cluster_name}-vpc"
-  }
 }
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 }
 
-# Dynamic Public Subnets
 resource "aws_subnet" "public" {
   for_each = var.public_subnets
 
@@ -34,7 +30,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-# Dynamic Private Subnets
 resource "aws_subnet" "private" {
   for_each = var.private_subnets
 
