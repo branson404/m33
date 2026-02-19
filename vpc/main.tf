@@ -27,11 +27,6 @@ resource "aws_subnet" "public" {
   availability_zone       = local.azs[index(keys(var.public_subnets), each.key)]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = each.key
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/elb" = "1"
-  }
 }
 
 # Dynamic Private Subnets
@@ -42,11 +37,6 @@ resource "aws_subnet" "private" {
   cidr_block        = each.value
   availability_zone = local.azs[index(keys(var.private_subnets), each.key)]
 
-  tags = {
-    Name = each.key
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb" = "1"
-  }
 }
 
 resource "aws_route_table" "public" {
@@ -63,4 +53,33 @@ resource "aws_route_table_association" "public" {
 
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
+}
+
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "this" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = values(aws_subnet.public)[0].id
+
+  depends_on = [aws_internet_gateway.this]
+
+}
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.this.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.this.id
+  }
+
+}
+
+resource "aws_route_table_association" "private" {
+  for_each = aws_subnet.private
+
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.private.id
 }
