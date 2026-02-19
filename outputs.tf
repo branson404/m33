@@ -6,9 +6,9 @@ output "cluster_endpoint" {
   value = module.eks.cluster_endpoint
 }
 output "vpc_id" {
-  value = aws_vpc.this.id
+  value = module.vpc.aws_vpc.this.id
 }
 
 output "private_subnet_ids" {
-  value = values(aws_subnet.private)[*].id
+  value = values(module.vpc.aws_subnet.private)[*].id
 }
