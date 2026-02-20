@@ -7,13 +7,13 @@ output "private_subnet_ids" {
 }
 
 output "rds_endpoint" {
-  value       = module.rds.aws_db_instance.rds.endpoint
+  value = module.rds.db_instance_endpoint
 }
 
 output "rds_instance_id" {
-  value       = module.rds.aws_db_instance.rds.id
+  value       = module.rds.db_instance_identifier
 }
 
-output "rds_security_group_id" {
-  value       = aws_security_group.rds_sg.id
+output "security_group_id" {
+  value = module.rds.rds_security_group_id
 }
