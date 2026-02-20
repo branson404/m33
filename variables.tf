@@ -21,7 +21,6 @@ variable "private_subnets" {
 variable "instance_types" {
   type = list(string)
 }
-variable "vpc_id" {type = string}
 variable "rds_cidr_blocks" {type = list(string)}
 variable "instance_class" {
   type        = string
