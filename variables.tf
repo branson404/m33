@@ -21,11 +21,6 @@ variable "private_subnets" {
 variable "instance_types" {
   type = list(string)
 }
-
-variable "aws_region" {
-  type        = string
-  default     = "us-east-1"
-}
 variable "vpc_id" {type = string}
 variable "subnet_ids" {type  = list(string)}
 variable "allowed_cidr_blocks" {type = list(string)}
