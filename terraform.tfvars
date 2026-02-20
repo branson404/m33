@@ -17,3 +17,10 @@ instance_types = ["t3.medium"]
 desired_size = 2
 min_size     = 1
 max_size     = 3
+
+instance_class = db.t3.micro
+rds_cidr_blocks = ["10.0.0.0/16"]
+
+db_name     = "mydb"
+db_username = "admin"
+db_password = "Password123"
