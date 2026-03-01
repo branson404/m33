@@ -3,8 +3,9 @@
 ## 📌 Project Overview
 This project demonstrates hands-on implementation of advanced Terraform configurations on AWS. The focus was on understanding remote state management, state locking mechanisms, and provisioning multiple AWS resources while resolving real-world configuration and dependency errors.
 
-## Branch Overview
-This branch contains files and dir which are seperated by modules on each folder contains rds terraform files and vpc, to provision the resources on cloud platform of AWS.
+## Branch Structure
+
+This branch contains Terraform files and directories organized using a modular structure. Each module is separated into its own folder, such as `vpc` and `rds`, where each directory includes the respective Terraform configurations required to provision those resources. The modular approach improves reusability, maintainability, and scalability, allowing independent provisioning of AWS resources while keeping the infrastructure code clean and well-structured.
 
 ---
 
